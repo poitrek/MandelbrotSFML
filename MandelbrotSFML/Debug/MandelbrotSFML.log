@@ -1,8 +1,6 @@
-﻿  Reporter.cpp
-  Source.cpp
+﻿  Source.cpp
 c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(99): warning C4018: '<': signed/unsigned mismatch
 c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(100): warning C4018: '<': signed/unsigned mismatch
 c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(123): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
 c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(124): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  Generating Code...
   MandelbrotSFML.vcxproj -> C:\Users\Piotr\source\repos\MandelbrotSFML\Debug\MandelbrotSFML.exe

@@ -84,8 +84,8 @@ int main()
 	double length_y = Y2 - Y1;
 
 	// domyslnie 600, 400
-	imgWidth = 810;
-	imgHeight = 540; // == imgWidth * length_y / length_x	
+	imgWidth = 600;
+	imgHeight = 400; // == imgWidth * length_y / length_x	
 
 	double precision = length_x / imgWidth; // == length_y / imgHeight
 	
