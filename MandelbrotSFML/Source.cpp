@@ -1,14 +1,12 @@
 #include <iostream>
-#include <cmath>
-#include <complex>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Reporter.hpp"
+#include "Calculator.hpp"
+#include "Renderer.hpp"
 
 using namespace std;
 
-typedef complex<double> compz;
-const compz c_i(0, 1);
 
 void test()
 {
@@ -30,7 +28,7 @@ void test()
 		
 	// e^(pi*i) = -1
 	cout << endl << "e^(pi*i) = ? " << endl;
-	cout << exp(3.14159265358 * c_i);
+	cout << exp(3.14159265358 * complex<double>(0, 1));
 
 	/*
 	cout << "z1+z2: " << z1 + z2 << endl;
@@ -41,88 +39,43 @@ void test()
 }
 
 
-compz func(compz z, compz P)
-{
-	return z * z + P;
-}
-
-// Function that tests if given complex number P satisfies the
-// Mandelbrot Set rule, according to given precision (number of iterations)
-bool MandelbrotTest(compz P, int iterations = 50)
-{
-	compz Z(0, 0);
-
-	for (int i = 0; i < iterations; i++)
-	{
-		Z = func(Z, P);
-	}
-
-	return (abs(Z) <= 2.0);
-
-}
-
 // domyslnie 750, 500
 unsigned int WINDOW_WIDTH = 850;
 unsigned int WINDOW_HEIGHT = 570;
 
-
 unsigned int imgWidth;
 unsigned int imgHeight;
-
-const double X1 = -2.0;
-const double X2 = 1.0;
-const double Y1 = -1.0;
-const double Y2 = 1.0;
 
 
 int main()
 {
 	sf::RenderWindow window;
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mandelbrot with SFML", sf::Style::Close);
-
-	double length_x = X2 - X1;
-	double length_y = Y2 - Y1;
-
+	
 	// domyslnie 600, 400
-	imgWidth = 600;
-	imgHeight = 400; // == imgWidth * length_y / length_x	
-
-	double precision = length_x / imgWidth; // == length_y / imgHeight
+	imgWidth = 810;
+	imgHeight = 540; // == imgWidth * lenght_y / length_x	
 	
-	sf::Image img;
-	img.create(imgWidth, imgHeight, sf::Color::Yellow);
 
+	Renderer renderer;
 	Reporter reporter;
+
+	renderer.SetGenerationRange(-2.0, 1.0, -1.0, 1.0);
+	Calculator::SetCalculationPrecision(60);
+
+	reporter.timer.start();	
 	
-	reporter.timer.start();
+	renderer.GenerateImage(imgWidth, imgHeight);	
 
-	for (int i = 0; i < imgWidth; i++)
-		for (int j = 0; j < imgHeight; j++)
-		{
-			compz C(X1 + i * precision, Y1 + j * precision);
-
-			if (MandelbrotTest(C, 50))
-			{
-				img.setPixel(i, j, sf::Color::Green);
-			}
-			else
-			{
-				img.setPixel(i, j, sf::Color::Black);
-			}
-
-		}
-	
 	reporter.timer.stop();
 	cout << "Image generating time: " << reporter.timer.latestDuration() << endl;
 	
-	sf::Texture txtr;
-	txtr.loadFromImage(img);
+	renderer.loadSprite();
 
-	
-	sf::Sprite sprite(txtr);
-	sprite.setOrigin(imgWidth / 2, imgHeight / 2);
-	sprite.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 
+
+	renderer.sprite.setOrigin(imgWidth / 2, imgHeight / 2);
+	renderer.sprite.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 
 	while (window.isOpen())
 	{
@@ -139,13 +92,13 @@ int main()
 
 		window.clear(sf::Color(144, 144, 144));
 
-		window.draw(sprite);
+		window.draw(renderer.sprite);
 
 		window.display();
 	}
 
 	/*
-	compz compNumber;
+	complex<double> compNumber;
 
 	while (true)
 	{
