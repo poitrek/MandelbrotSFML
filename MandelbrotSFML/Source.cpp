@@ -53,8 +53,8 @@ int main()
 {
 	
 	// domyslnie 600, 400
-	imgWidth = 600;
-	imgHeight = 400; // == imgWidth * lenght_y / length_x	
+	imgWidth = 750;
+	imgHeight = 500; // == imgWidth * lenght_y / length_x	
 	
 
 	Renderer renderer;
@@ -67,7 +67,7 @@ int main()
 	renderer.SetImageSize(imgWidth, imgHeight);
 	
 	// Set number of maximum iterations per pixel
-	Calculator::SetCalculationPrecision(100);
+	Calculator::SetCalculationPrecision(50);
 
 
 	reporter.ViewGenerationParameters(renderer);

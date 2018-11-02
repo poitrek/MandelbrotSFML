@@ -46,6 +46,7 @@ void Reporter::ViewGenerationState(Renderer & renderer)
 void Reporter::GenerationTimeReport()
 {
 	cout << "Genearation time: " << timer.latestDuration() << endl;
+	cout << "Pixels tested: " << Calculator::GetTestCallCount() << endl;
 }
 
 void Reporter::CalculateGenerationState(Renderer & renderer)
