@@ -1,7 +1,13 @@
 #pragma once
 #include <iostream>
 #include <time.h>
+#include "Calculator.hpp"
+//#include "consoleUtilities.h"
+
+
 using namespace std;
+
+class Renderer;
 
 class Reporter
 {
@@ -25,11 +31,18 @@ public:
 
 	}timer;
 
-	void timeLapseReport()
-	{
-		
-		
-	}
+	void ViewGenerationParameters(Renderer &renderer);
+
+	void ViewGenerationState(Renderer &renderer);
+
+	void GenerationTimeReport();
+
+private:
+	void CalculateGenerationState(Renderer &renderer);
+
+	unsigned int generation_progress{ 0 };
+
+	unsigned int numberOfPixels;
 
 };
 

@@ -1,7 +1,4 @@
-﻿  Calculator.cpp
-  Renderer.cpp
-  Source.cpp
-c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(77): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(78): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  Generating Code...
+﻿  Source.cpp
+c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(96): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\source.cpp(97): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   MandelbrotSFML.vcxproj -> C:\Users\Piotr\source\repos\MandelbrotSFML\Debug\MandelbrotSFML.exe

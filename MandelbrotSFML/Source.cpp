@@ -1,9 +1,11 @@
 #include <iostream>
+#include <thread>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Reporter.hpp"
 #include "Calculator.hpp"
 #include "Renderer.hpp"
+//#include "consoleUtilities.h"
 
 using namespace std;
 
@@ -49,34 +51,55 @@ unsigned int imgHeight;
 
 int main()
 {
-	sf::RenderWindow window;
-	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mandelbrot with SFML", sf::Style::Close);
 	
 	// domyslnie 600, 400
-	imgWidth = 810;
-	imgHeight = 540; // == imgWidth * lenght_y / length_x	
+	imgWidth = 600;
+	imgHeight = 400; // == imgWidth * lenght_y / length_x	
 	
 
 	Renderer renderer;
 	Reporter reporter;
-
-	renderer.SetGenerationRange(-2.0, 1.0, -1.0, 1.0);
-	Calculator::SetCalculationPrecision(60);
-
-	reporter.timer.start();	
 	
-	renderer.GenerateImage(imgWidth, imgHeight);	
+	// Set tested range of complex plane
+	renderer.SetGenerationRange(-2.0, 1.0, -1.0, 1.0);
+	
+	// Set size of image
+	renderer.SetImageSize(imgWidth, imgHeight);
+	
+	// Set number of maximum iterations per pixel
+	Calculator::SetCalculationPrecision(100);
+
+
+	reporter.ViewGenerationParameters(renderer);
+
+	thread t1(&Renderer::GenerateImage, ref(renderer));	
+	thread t2(&Reporter::ViewGenerationState, ref(reporter), ref(renderer));
+
+
+	reporter.timer.start();
+	
+	t1.join();
+	t2.join();
+	//renderer.GenerateImage();
 
 	reporter.timer.stop();
-	cout << "Image generating time: " << reporter.timer.latestDuration() << endl;
-	
+
+	reporter.GenerationTimeReport();
+
 	renderer.loadSprite();
 
 
+	
+	WINDOW_WIDTH = imgWidth + 10;
+	WINDOW_HEIGHT = imgHeight + 10;
 
 	renderer.sprite.setOrigin(imgWidth / 2, imgHeight / 2);
 	renderer.sprite.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 
+	
+	sf::RenderWindow window;
+	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Mandelbrot with SFML", sf::Style::Close);
+	
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -91,9 +114,7 @@ int main()
 		}
 
 		window.clear(sf::Color(144, 144, 144));
-
 		window.draw(renderer.sprite);
-
 		window.display();
 	}
 

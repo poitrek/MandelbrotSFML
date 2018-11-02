@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Calculator.hpp" />
+    <ClInclude Include="consoleUtilities.h" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Reporter.hpp" />
   </ItemGroup>

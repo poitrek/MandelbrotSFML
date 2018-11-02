@@ -1,16 +1,25 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Calculator.hpp"
+#include "Reporter.hpp"
 
 class Renderer
 {
 private:
 	double precisionPerPixel;
 	double X1, X2, Y1, Y2;
+	unsigned int imgWidth, imgHeight;
+	unsigned int width_it{ 0 }, height_it{ 0 };
 	sf::Image img;
 	sf::Texture txtr;
 
 public:
+	friend class Reporter;
+	//friend void Reporter::ViewGenerationParameters(Renderer &);
+	//friend void Reporter::ViewGenerationState(Renderer &);
+
+	Renderer();
+
 	sf::Sprite sprite;
 
 	void SetGenerationRange(double _X1 = -2.0, double _X2 = 1.0, double _Y1 = -1.0, double _Y2 = 1.0)
@@ -21,7 +30,13 @@ public:
 		Y2 = _Y2;
 	}
 
-	void GenerateImage(unsigned int imgWidth, unsigned int imgHeight)
+	void SetImageSize(unsigned int _imgWidth, unsigned int _imgHeight)
+	{
+		imgWidth = _imgWidth;
+		imgHeight = _imgHeight;
+	}
+
+	void GenerateImage()
 	{
 		img.create(imgWidth, imgHeight, sf::Color::Yellow);
 
@@ -30,18 +45,18 @@ public:
 		precisionPerPixel = length_x / imgWidth; // == length_y / imgHeight
 
 		// Setting properly all the pixels
-		for (unsigned int i = 0; i < imgWidth; i++)
-			for (unsigned int j = 0; j < imgHeight; j++)
+		for (width_it = 0; width_it < imgWidth; width_it++)
+			for (height_it = 0; height_it < imgHeight; height_it++)
 			{
-				complex<double> C(X1 + i * precisionPerPixel, Y1 + j * precisionPerPixel);
+				complex<double> C(X1 + width_it * precisionPerPixel, Y1 + height_it * precisionPerPixel);
 
 				if (Calculator::MandelbrotTest(C))
 				{
-					img.setPixel(i, j, sf::Color::Green);
+					img.setPixel(width_it, height_it, sf::Color::Green);
 				}
 				else
 				{
-					img.setPixel(i, j, sf::Color::Black);
+					img.setPixel(width_it, height_it, sf::Color::Black);
 				}
 
 			}

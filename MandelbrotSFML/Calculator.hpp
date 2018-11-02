@@ -9,6 +9,7 @@ typedef complex<double> compz;
 class Calculator
 {
 	static unsigned int numberOfIterations;
+	static int testCallCounter;
 
 	static complex<double> complexFunction(complex<double> z, complex<double> P)
 	{
@@ -41,8 +42,18 @@ public:
 		} while (i < numberOfIterations && result == true);
 
 		//result = (abs(Z) <= 2.0);
+		testCallCounter++;
 
 		return result;
+	}
+
+	static unsigned int GetCalculationPrecision()
+	{
+		return numberOfIterations;
+	}
+	static int GetTestCallCount()
+	{
+		return testCallCounter;
 	}
 
 };
