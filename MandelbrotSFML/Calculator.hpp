@@ -35,7 +35,11 @@ public:
 		{
 			Z = complexFunction(Z, P); // Process the next sequence element
 
-			result = (abs(Z) <= 2.0);
+			///result = (abs(Z) <= 2.0);
+
+			// This operation is much faster
+			// (calculating vector's norm instead of absolute value)
+			result = (norm(Z) <= 4.0);
 
 			i++;
 

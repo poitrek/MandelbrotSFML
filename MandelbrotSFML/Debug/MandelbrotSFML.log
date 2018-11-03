@@ -1,4 +1,5 @@
-﻿  Renderer.cpp
+﻿  Calculator.cpp
+  Renderer.cpp
   Reporter.cpp
 c:\users\piotr\source\repos\mandelbrotsfml\mandelbrotsfml\consoleutilities.h(6): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
   Source.cpp

@@ -53,8 +53,8 @@ int main()
 {
 	
 	// domyslnie 600, 400
-	imgWidth = 750;
-	imgHeight = 500; // == imgWidth * lenght_y / length_x	
+	imgWidth = 900;
+	imgHeight = 600; // == imgWidth * lenght_y / length_x	
 	
 
 	Renderer renderer;
