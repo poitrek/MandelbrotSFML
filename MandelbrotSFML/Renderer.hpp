@@ -13,6 +13,13 @@ private:
 	sf::Image img;
 	sf::Texture txtr;
 
+	struct ColorPicker
+	{
+		int RedSaturation(float);
+		int GreenSaturation(float);
+		int BlueSaturation(float);		
+	}colorPicker;
+
 public:
 	friend class Reporter;
 	//friend void Reporter::ViewGenerationParameters(Renderer &);

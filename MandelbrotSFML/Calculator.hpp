@@ -8,7 +8,7 @@ typedef complex<double> compz;
 
 class Calculator
 {
-	static unsigned int numberOfIterations;
+	static unsigned int maximumIterations;
 	static int testCallCounter;
 
 	static complex<double> complexFunction(complex<double> z, complex<double> P)
@@ -19,18 +19,21 @@ class Calculator
 public:
 	static void SetCalculationPrecision(unsigned int iterations)
 	{
-		numberOfIterations = iterations;
+		maximumIterations = iterations;
 	}
 
-	// Function that tests if given complex number P satisfies the
-	// Mandelbrot Set rule, according to given precision (number of iterations)
-	static bool MandelbrotTest(complex<double> P)
+	// Returns the number of iterations needed for the processed
+	// complex number to exceed 2.0 at its absolute value (if the
+	// number reaches maximum given number of iterations then it's
+	// considered to be inside of the Mandelbrot set
+	static int MandelbrotTest(complex<double> P)
 	{
 		complex<double> Z(0, 0);
 
-		bool result = true;
+		int iterationsDone = 0;
 
-		unsigned int i = 0;
+		bool condition;
+
 		do
 		{
 			Z = complexFunction(Z, P); // Process the next sequence element
@@ -39,21 +42,21 @@ public:
 
 			// This operation is much faster
 			// (calculating vector's norm instead of absolute value)
-			result = (norm(Z) <= 4.0);
+			condition = (norm(Z) <= 4.0);
 
-			i++;
+			iterationsDone++;
 
-		} while (i < numberOfIterations && result == true);
+		} while (iterationsDone < maximumIterations && condition == true);
 
 		//result = (abs(Z) <= 2.0);
 		testCallCounter++;
 
-		return result;
+		return iterationsDone;
 	}
 
 	static unsigned int GetCalculationPrecision()
 	{
-		return numberOfIterations;
+		return maximumIterations;
 	}
 	static int GetTestCallCount()
 	{

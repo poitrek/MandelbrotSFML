@@ -51,9 +51,8 @@ unsigned int imgHeight;
 
 int main()
 {
-	
-	// domyslnie 600, 400
-	imgWidth = 900;
+	// 600, 971
+	imgWidth = 810;
 	imgHeight = 600; // == imgWidth * lenght_y / length_x	
 	
 
@@ -61,7 +60,8 @@ int main()
 	Reporter reporter;
 	
 	// Set tested range of complex plane
-	renderer.SetGenerationRange(-2.0, 1.0, -1.0, 1.0);
+	renderer.SetGenerationRange(-2.07, 0.9, -1.1, 1.1);
+	// (-2.36, 1.1, -1.1, 1.2)
 	
 	// Set size of image
 	renderer.SetImageSize(imgWidth, imgHeight);
@@ -117,27 +117,6 @@ int main()
 		window.draw(renderer.sprite);
 		window.display();
 	}
-
-	/*
-	complex<double> compNumber;
-
-	while (true)
-	{
-		cout << "Give a complex number: ";
-		cin >> compNumber;
-
-		bool res = MandelbrotTest(compNumber);
-		if (res)
-		{
-			cout << "YES" << endl;
-		}
-		else
-		{
-			cout << "NO" << endl;
-		}
-
-	}
-	*/
 
 	return 0;
 }
